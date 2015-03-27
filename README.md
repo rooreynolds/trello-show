@@ -27,7 +27,6 @@ from Trello boards like this
 
 http://rooreynolds.github.io/trello-show
 
-=======
 
 ###Use
 
