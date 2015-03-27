@@ -30,6 +30,16 @@ function make_checklists_table(data) { // create a table of Checklists
    return checklists_table;
 }
 
+function moveSectionToNewDiv(sourceDivID, newDivClass) {
+   $(".description").find(sourceDivID).each(function() { 
+      var following_para = $(this).next();
+      var nowdiv = $("<div>", {class: newDivClass});
+      $(this).parent().prepend(nowdiv);
+      $(this).appendTo(nowdiv);
+      following_para.appendTo(nowdiv);
+   });
+}
+
 function showCards(jsonURL) {
 	$.getJSON(jsonURL, {key:trello_key}, function(data) {
 	   $('#board').append($("<h1>", {text: data.name})); //board name
@@ -75,19 +85,7 @@ function showCards(jsonURL) {
 	         $('#board').append(carddiv);
 	      }
 	  }
-	  $(".description").find("#now-challenge").each(function() { 
-	    var following_para = $(this).next();
-	    var nowdiv = $("<div>", {class: 'now'});
-	    $(this).parent().prepend(nowdiv);
-	    $(this).appendTo(nowdiv);
-	    following_para.appendTo(nowdiv);
-	  });
-	  $(".description").find("#future-vision").each(function() { 
-	    var following_para = $(this).next();
-	    var futurediv = $("<div>", {class: 'future'});
-	    $(this).parent().prepend(futurediv);
-	    $(this).appendTo(futurediv);
-	    following_para.appendTo(futurediv);
-	  });
+	  moveSectionToNewDiv("#future-vision", 'future');
+	  moveSectionToNewDiv("#now-challenge", 'now');
 	})
 }
