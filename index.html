@@ -6,6 +6,7 @@
     <link href="style.css" rel="stylesheet" type="text/css"></link>
   </head>
   <body>
+  <h3>hello</h3>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
@@ -65,8 +66,9 @@
                carddiv.append($("<div>", {class: 'description', html: marked(card.desc)}));
                var checklist = checklists_table[card.idChecklists[0]]; //show the first checklist, if there is one
                if (checklist) { 
-                  carddiv.append($("<h3>", {class: 'checklist-name', text: checklist.name}));
-                  var checklistdiv = $("<ul>", { class: 'checklist'});
+                  var checklistdiv = $("<div>", {class: 'checklist'});
+                  checklistdiv.append($("<h3>", {class: 'checklist-name', text: checklist.name}));
+                  var checklistul = $("<ul>", { class: 'checklist'});
                   var items_list = [];
                   for (item_index in checklist.checkItems) {
                      item = checklist.checkItems[item_index];
@@ -75,8 +77,9 @@
                   items_list.sort(function (a, b) { return a[0] - b[0] }); //sort based on item position
                   for (item_index in items_list) {
                      item = items_list[item_index][1];
-                     checklistdiv.append($("<li>", {class: item.state, text: item.name}));
+                     checklistul.append($("<li>", {class: item.state, text: item.name}));
                   }
+                  checklistdiv.append(checklistul);
                   carddiv.append(checklistdiv);
                }
                var metadiv = $("<div>", {class: 'meta'});
@@ -90,8 +93,23 @@
                carddiv.append(metadiv);
                $('#board').append(carddiv);
             }
-         }
+        }
+        $(".description").find("#now-challenge").each(function() { 
+          var following_para = $(this).next();
+          var nowdiv = $("<div>", {class: 'now'});
+          $(this).parent().prepend(nowdiv);
+          $(this).appendTo(nowdiv);
+          following_para.appendTo(nowdiv);
+        });
+        $(".description").find("#future-vision").each(function() { 
+          var following_para = $(this).next();
+          var futurediv = $("<div>", {class: 'future'});
+          $(this).parent().prepend(futurediv);
+          $(this).appendTo(futurediv);
+          following_para.appendTo(futurediv);
+        });
       })
+      
   </script>
   </body>
 </html>
