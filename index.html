@@ -12,10 +12,21 @@
   <div id="board"/>
   
   <script type="text/javascript">
-      
-      var trello_key = "YOUR_KEY";
-      var jsonURL = "https://api.trello.com/1/board/bvLhgd6L?cards=open&lists=open";
-      var skip_list = "New / to discuss"; // column to exclude
+      var trello_key = getParameterByName('key') || "YOUR_KEY";
+      var jsonURL = "https://api.trello.com/1/board/" + (getParameterByName('board') || 'bvLhgd6L') + "?cards=open&lists=open&checklists=all";
+      var skip_list = getParameterByName('skip') || "New / to discuss"; // column to exclude (TODO: support multiple columns to skip?)
+
+  	  function getParameterByName(name) {
+  	    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+  	    var regexS = "[\\?&]" + name + "=([^&#]*)";
+  	    var regex = new RegExp(regexS);
+  	    var results = regex.exec(window.location.href);
+  	    if(results == null) {
+  	      return false;
+  	    } else {
+  	      return decodeURIComponent(results[1].replace(/\+/g, " "));
+  	    }
+  	  }
 
       function make_lists_table(data) { // create a table of Trello columns 
          var lists_table = {};
@@ -68,13 +79,15 @@
                   }
                   carddiv.append(checklistdiv);
                }
-               carddiv.append($("<h4>", {class: 'list-name', text: (lists_table[card.idList].name)})); 
+               var metadiv = $("<div>", {class: 'meta'});
                var labelsdiv = $("<ul>", {class: 'labellist'});
                for (label in  card.labels) {
                   labelsdiv.append($("<li>", {class: 'label ' + card.labels[label].color, text: card.labels[label].name}));
                }
-               carddiv.append(labelsdiv);
-               carddiv.append($("<a>", {href: card.url, text: card.url})); 
+               metadiv.append(labelsdiv);
+               metadiv.append($("<p>", {class: 'list-name', text: (lists_table[card.idList].name)})); 
+               metadiv.append($("<a>", {class: 'card-url', href: card.url, text: card.url})); 
+               carddiv.append(metadiv);
                $('#board').append(carddiv);
             }
          }
