@@ -19,7 +19,7 @@
       var jsonURL = "https://api.trello.com/1/board/" + (getParameterByName('board') || 'bvLhgd6L') + "?cards=open&lists=open&checklists=all";
       var skip_list = getParameterByName('skip') || "New / to discuss"; // column to exclude (TODO: support multiple columns to skip?)
 
-  	  showCards(jsonURL);
+      showCards(jsonURL);
   	  
   </script>
   </body>
