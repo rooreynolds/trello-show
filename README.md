@@ -11,13 +11,13 @@ For each card, displays
 - checklist
 - URL
 
-Renders sematic (but currently brutally simple) HTML like this
+Renders sematic (but brutally simple) HTML like this
 
-<a href="https://www.flickr.com/photos/rooreynolds/16936378375" title="trello-show example by Roo Reynolds, on Flickr"><img src="https://farm8.staticflickr.com/7637/16936378375_bc07fe2d53.jpg" width="391" height="500" alt="trello-show example"></a>
+<a href="https://www.flickr.com/photos/rooreynolds/16327528343" title="trello-show example 1 by Roo Reynolds, on Flickr"><img src="https://farm8.staticflickr.com/7282/16327528343_b0abf80f97.jpg" width="500" height="432" alt="trello-show example 1"></a>
 
 and this
 
-<a href="https://www.flickr.com/photos/rooreynolds/16935404551" title="trello-show example by Roo Reynolds, on Flickr"><img src="https://farm9.staticflickr.com/8736/16935404551_0c47234962.jpg" width="423" height="500" alt="trello-show example"></a>
+<a href="https://www.flickr.com/photos/rooreynolds/16761378669" title="trello-show example 2 by Roo Reynolds, on Flickr"><img src="https://farm8.staticflickr.com/7605/16761378669_30f620266f.jpg" width="499" height="500" alt="trello-show example 2"></a>
 
 from Trello boards like this
 
