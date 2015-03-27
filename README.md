@@ -36,9 +36,7 @@ You can pass optional parameters
 - ```key``` your [Trello API key](https://trello.com/docs/gettingstarted/)
 - ```skip``` the name of a column you want to exclude from being displayed
 
-eg 
-
-```index.html?board=bvLhgd6L&key=YOUR_KEY&skip=New```
+eg `index.html?board=bvLhgd6L&key=YOUR_KEY&skip=New`
 
 ###Defaults 
 
