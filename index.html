@@ -13,7 +13,7 @@
   <div id="board"/>
   
   <script type="text/javascript">
-      var trello_key = getParameterByName('key') || "YOUR_KEY";
+      var trello_key = getParameterByName('key') || "a66bcb187f5c9988fbe0b3458a16d920";
       var jsonURL = "https://api.trello.com/1/board/" + (getParameterByName('board') || 'bvLhgd6L') + "?cards=open&lists=open&checklists=all";
       var skip_list = getParameterByName('skip') || "New / to discuss"; // column to exclude (TODO: support multiple columns to skip?)
 
