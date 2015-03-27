@@ -1,0 +1,73 @@
+body {
+  font-family: sans-serif;
+  font-size: 14px;
+  background-color: silver;
+}
+
+.card {
+	margin-bottom: 20px;
+	border: 1px solid silver;
+  	padding: 5px;
+  	background-color: white;
+}
+
+.complete {
+	color:gray;
+	text-decoration: line-through;
+}
+
+.labellist {
+	padding-right:5px;
+	margin-left:0px;
+	padding-left:0px;
+}
+
+.label {
+	list-style-type: none;
+	display: inline;
+	padding:5px;
+	margin:2px;
+	color:white;
+	background-color: silver;
+}
+
+.green { 
+	background-color:green;
+}
+
+.yellow { 
+	background-color:yellow;
+}
+
+.orange {
+	background-color:orange;
+}
+
+.red {
+	background-color: red;
+}
+
+.purple {
+	background-color: purple;
+}
+
+.blue {
+        background-color: blue;
+}
+
+.sky {
+        background-color: skyblue;
+}
+
+.lime {
+        background-color: lime;
+}
+
+.pink {
+        background-color: pink;
+}
+
+.black {
+        background-color: black;
+}
+
