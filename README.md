@@ -23,10 +23,10 @@ from Trello boards like this
 
 <a href="https://www.flickr.com/photos/rooreynolds/16313976614" title="Trello example by Roo Reynolds, on Flickr"><img src="https://farm9.staticflickr.com/8733/16313976614_75db70aec9.jpg" width="500" height="246" alt="Trello example"></a>
 
+###Try it
 
-###Use
+http://rooreynolds.github.io/trello-show
 
-Could be a useful starting point for styling Trello cards in a helpful way eg for displaying on a big screen, printing, etc.
 
 ###Parameters
 
@@ -36,7 +36,7 @@ You can pass optional parameters
 - ```key``` your [Trello API key](https://trello.com/docs/gettingstarted/)
 - ```skip``` the name of a column you want to exclude from being displayed
 
-eg `index.html?board=bvLhgd6L&key=YOUR_KEY&skip=New`
+eg `http://rooreynolds.github.io/trello-show?board=YOUR_BOARD&key=YOUR_KEY&skip=New`
 
 ###Defaults 
 
