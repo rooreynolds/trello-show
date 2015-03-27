@@ -3,6 +3,7 @@ body {
   font-size: 14px;
   background-color: silver;
 }
+
 .card {
 	margin-bottom: 20px;
 	border: 1px solid silver;
@@ -26,24 +27,47 @@ body {
 	display: inline;
 	padding:5px;
 	margin:2px;
+	color:white;
+	background-color: silver;
 }
 
 .green { 
 	background-color:green;
-	color:white;
 }
 
 .yellow { 
 	background-color:yellow;
-	color:white;
 }
 
 .orange {
 	background-color:orange;
-	color:white;
 }
 
 .red {
 	background-color: red;
-	color:white;
 }
+
+.purple {
+	background-color: purple;
+}
+
+.blue {
+        background-color: blue;
+}
+
+.sky {
+        background-color: skyblue;
+}
+
+.lime {
+        background-color: lime;
+}
+
+.pink {
+        background-color: pink;
+}
+
+.black {
+        background-color: black;
+}
+
