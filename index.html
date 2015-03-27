@@ -62,7 +62,7 @@
             } else {
                var carddiv = $("<div>", {class: 'card'});
                carddiv.append($("<h2>", {text: card.name}));
-               carddiv.append($("<div>", {class: 'decription', html: marked(card.desc)}));
+               carddiv.append($("<div>", {class: 'description', html: marked(card.desc)}));
                var checklist = checklists_table[card.idChecklists[0]]; //show the first checklist, if there is one
                if (checklist) { 
                   carddiv.append($("<h3>", {class: 'checklist-name', text: checklist.name}));
