@@ -27,16 +27,22 @@ from Trello boards like this
 
 http://rooreynolds.github.io/trello-show
 
+=======
+
+###Use
+
+Could be a useful starting point for styling Trello cards in a helpful way eg for displaying on a big screen, printing, etc.
+>>>>>>> initial pages commit
 
 ###Parameters
 
 You can pass optional parameters
 
-- ```board``` the ID of the trello board to use. eg ```trello.com/b/*{this bit}*```
+- ```board``` the ID of the trello board to use. eg https://trello.com/b/*{this bit}*
 - ```key``` your [Trello API key](https://trello.com/docs/gettingstarted/)
 - ```skip``` the name of a column you want to exclude from being displayed
 
-eg `http://rooreynolds.github.io/trello-show?board=YOUR_BOARD&key=YOUR_KEY&skip=New`
+eg `index.html?board=bvLhgd6L&key=YOUR_KEY&skip=New`
 
 ###Defaults 
 
