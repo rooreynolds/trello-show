@@ -57,7 +57,7 @@ function showCards(jsonURL) {
 	         carddiv.append($("<div>", {class: 'description', html: marked(card.desc)}));
 	         var checklist = checklists_table[card.idChecklists[0]]; //show the first checklist, if there is one
 	         if (checklist) { 
-	            var checklistdiv = $("<div>", {class: 'checklist'});
+	            var checklistdiv = $("<div>", {class: 'checklists'});
 	            checklistdiv.append($("<h3>", {class: 'checklist-name', text: checklist.name}));
 	            var checklistul = $("<ul>", { class: 'checklist'});
 	            var items_list = [];

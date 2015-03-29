@@ -1,0 +1,13 @@
+body {
+  font-size: 25px;
+  background-color: white;
+}
+
+h1 {
+	display: none;
+}
+
+.card {
+	page-break-after: always;
+	border: none;
+}

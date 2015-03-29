@@ -2,13 +2,50 @@ body {
   font-family: sans-serif;
   font-size: 14px;
   background-color: silver;
+  padding: 0px;
+  margin: 0px;
+}
+
+h1 {
+	margin: 10px;
 }
 
 .card {
-	margin-bottom: 20px;
+	padding: 10px;
+	margin: 10px;
 	border: 1px solid silver;
-  	padding: 5px;
   	background-color: white;
+  	overflow: auto;
+  	position: relative;
+}
+
+.description {
+	float:left;
+	width: 47%;
+	border-right: solid silver 1px;
+	padding-right: 1%;
+}
+
+.now {
+	border-bottom: solid silver 1px;
+}
+
+.future {
+
+}
+
+.meta {
+	clear:both;
+}
+
+.checklists {
+	float:right;
+	width: 47%;
+	padding-left: 2%;
+}
+
+.checklist {
+	padding-left: 5px;
 }
 
 .complete {
@@ -17,8 +54,6 @@ body {
 }
 
 .labellist {
-	padding-right:5px;
-	margin-left:0px;
 	padding-left:0px;
 }
 
@@ -29,6 +64,11 @@ body {
 	margin:2px;
 	color:white;
 	background-color: silver;
+}
+
+.list-name .card-url {
+	padding:5px;
+	margin:2px;
 }
 
 .green { 
@@ -70,4 +110,3 @@ body {
 .black {
         background-color: black;
 }
-
