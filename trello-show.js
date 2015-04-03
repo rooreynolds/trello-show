@@ -85,7 +85,11 @@ function showCards(jsonURL) {
 	         $('#board').append(carddiv);
 	      }
 	  }
-	  location.href = window.location.hash; // to ensure we jump to it once it's there
+	  var hash = window.location.hash; 
+	  if (hash) { // did we have a # in the URL?
+	  	$('#ribbon').hide(); // hide the ribbon if we're jumping to a specified location
+	  	location.href = hash; //ensure we jump to it once it's there
+	  }
 	  moveSectionToNewDiv("#future-vision", 'future'); // create a new div for 'future'
 	  moveSectionToNewDiv("#now-challenge", 'now'); // create a new div for 'now'
 	})
