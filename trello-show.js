@@ -53,7 +53,7 @@ function showCards(jsonURL) {
 	         //this card is closed or is a skippable list. Don't show it.
 	      } else {
 	         var carddiv = $("<div>", {class: 'card'});
-	         carddiv.append($("<h2>", {text: card.name}));
+	         carddiv.append($("<h2>", {text: card.name, id: card.name.replace(/\s/g,'-').toLowerCase()}));
 	         carddiv.append($("<div>", {class: 'description', html: marked(card.desc)}));
 	         var checklist = checklists_table[card.idChecklists[0]]; //show the first checklist, if there is one
 	         if (checklist) { 
