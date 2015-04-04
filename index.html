@@ -15,12 +15,11 @@
   <div id="board"/>
   
   <script type="text/javascript">
-      var trello_key = getParameterByName('key') || "YOUR_KEY";
       var jsonURL = "https://api.trello.com/1/board/" + (getParameterByName('board') || 'bvLhgd6L') + "?cards=open&lists=open&checklists=all";
-      var skip_list = getParameterByName('skip') || "New / to discuss"; // column to exclude (TODO: support multiple columns to skip?)
-
-      showCards(jsonURL);
-  	  
+      var trelloKey = getParameterByName('key') || "YOUR_KEY";
+      var skipList = getParameterByName('skip') || "New / to discuss"; // column to exclude (TODO: support multiple columns to skip?)
+      var singleCardToShow = getParameterByName('show');
+      showCards(jsonURL, trelloKey, skipList, singleCardToShow);
   </script>
   </body>
 </html>
