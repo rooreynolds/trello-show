@@ -40,17 +40,21 @@ function moveSectionToNewDiv(sourceDivID, newDivClass) {
    });
 }
 
-function showCards(jsonURL) {
-	$.getJSON(jsonURL, {key:trello_key}, function(data) {
-	   $('#board').append($("<h1>", {text: data.name})); //board name
+function showCards(jsonURL, trelloKey, skipList, singleCardToShow) {
+	$.getJSON(jsonURL, {key:trelloKey}, function(data) {
+	   if (! singleCardToShow) { // don't show the board name if we're only showing one card
+	      $('#board').append($("<h1>", {text: data.name})); //board name
+	   }
 
 	   var lists_table = make_lists_table(data); // lookup table of lists (ie Trello columns)
 	   var checklists_table = make_checklists_table(data); // lookup table of checklists
 
 	   for (card_index in data.cards) {
 	      card = data.cards[card_index];
-	      if(card.closed || lists_table[card.idList].name == skip_list) {
+	      if(card.closed || lists_table[card.idList].name == skipList) {
 	         //this card is closed or is a skippable list. Don't show it.
+	      } else if (singleCardToShow && card.name != singleCardToShow) {
+	         // only showing one card, and this isn't it. Don't show it.
 	      } else {
 	         var carddiv = $("<div>", {class: 'card'});
 	         carddiv.append($("<h2>", {text: card.name, id: card.name.replace(/\s/g,'-').toLowerCase()}));
@@ -85,10 +89,16 @@ function showCards(jsonURL) {
 	         $('#board').append(carddiv);
 	      }
 	  }
+<<<<<<< HEAD
 	  var hash = window.location.hash; 
 	  if (hash) { // did we have a # in the URL?
 	  	$('#ribbon').hide(); // hide the ribbon if we're jumping to a specified location
 	  	location.href = hash; //ensure we jump to it once it's there
+=======
+	  hash = window.location.hash; // to ensure we jump to it once it's there
+	  if (hash) {
+	  	location.href = hash;
+>>>>>>> 5d1944eb6da7d89b100c74199908888d2a230792
 	  }
 	  moveSectionToNewDiv("#future-vision", 'future'); // create a new div for 'future'
 	  moveSectionToNewDiv("#now-challenge", 'now'); // create a new div for 'now'
