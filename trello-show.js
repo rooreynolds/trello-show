@@ -91,7 +91,6 @@ function showCards(jsonURL, trelloKey, skipList, singleCardToShow) {
 	  }
 	  var hash = window.location.hash; 
 	  if (hash) { // did we have a # in the URL?
-	  	$('#ribbon').hide(); // hide the ribbon if we're jumping to a specified location
 	  	location.href = hash; //ensure we jump to it once it's there
 	  }
 	  moveSectionToNewDiv("#future-vision", 'future'); // create a new div for 'future'
