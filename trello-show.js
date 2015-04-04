@@ -89,7 +89,7 @@ function showCards(jsonURL, trelloKey, skipList, singleCardToShow) {
 	         $('#board').append(carddiv);
 	      }
 	  }
-	  hash = window.location.hash; // to ensure we jump to it once it's there
+	  var hash = window.location.hash; // to ensure we jump to it once it's there
 	  if (hash) {
 	  	location.href = hash;
 	  }
