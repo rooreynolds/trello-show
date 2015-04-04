@@ -16,7 +16,7 @@
   
   <script type="text/javascript">
       var jsonURL = "https://api.trello.com/1/board/" + (getParameterByName('board') || 'bvLhgd6L') + "?cards=open&lists=open&checklists=all";
-      var trello_key = getParameterByName('key') || "a66bcb187f5c9988fbe0b3458a16d920";
+      var trelloKey = getParameterByName('key') || "a66bcb187f5c9988fbe0b3458a16d920";
       var skipList = getParameterByName('skip') || "New / to discuss"; // column to exclude (TODO: support multiple columns to skip?)
       var singleCardToShow = getParameterByName('show');
       showCards(jsonURL, trelloKey, skipList, singleCardToShow);
