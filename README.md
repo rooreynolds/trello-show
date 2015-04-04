@@ -32,11 +32,15 @@ http://rooreynolds.github.io/trello-show
 
 You can pass optional parameters
 
-- ```board``` the ID of the trello board to use. eg ```trello.com/b/*{this bit}*```
+- ```board``` the ID of the trello board to use. eg ```trello.com/b/{this bit}```
 - ```key``` your [Trello API key](https://trello.com/docs/gettingstarted/)
 - ```skip``` the name of a column you want to exclude from being displayed
+- ```show``` a single named card to show
 
-eg `http://rooreynolds.github.io/trello-show?board=YOUR_BOARD&key=YOUR_KEY&skip=New`
+eg 
+
+- `http://rooreynolds.github.io/trello-show?board=YOUR_BOARD&key=YOUR_KEY&skip=New`
+- `http://rooreynolds.github.io/trello-show?key=YOUR_KEY&show=Manuals`
 
 ###Defaults 
 
