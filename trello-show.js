@@ -89,9 +89,9 @@ function showCards(jsonURL, trelloKey, skipList, singleCardToShow) {
 	         $('#board').append(carddiv);
 	      }
 	  }
-	  var hash = window.location.hash; // to ensure we jump to it once it's there
-	  if (hash) {
-	  	location.href = hash;
+	  var hash = window.location.hash; 
+	  if (hash) { // did we have a # in the URL?
+	  	location.href = hash; //ensure we jump to it once it's there
 	  }
 	  moveSectionToNewDiv("#future-vision", 'future'); // create a new div for 'future'
 	  moveSectionToNewDiv("#now-challenge", 'now'); // create a new div for 'now'
