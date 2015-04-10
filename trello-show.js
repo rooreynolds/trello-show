@@ -40,8 +40,13 @@ function moveSectionToNewDiv(sourceDivID, newDivClass) {
    });
 }
 
-function showCards(jsonURL, trelloKey, skipList, singleCardToShow) {
-	$.getJSON(jsonURL, {key:trelloKey}, function(data) {
+function showCards(jsonURL, trelloKey, token, skipList, singleCardToShow) {
+	var params = {};
+	params['key'] = trelloKey;
+	if (token) {
+		params['token'] = token;
+	}
+	$.getJSON(jsonURL, params, function(data) {
 	   if (! singleCardToShow) { // don't show the board name if we're only showing one card
 	      $('#board').append($("<h1>", {text: data.name})); //board name
 	   }
