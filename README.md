@@ -34,6 +34,7 @@ You can pass optional parameters
 
 - ```board``` the ID of the trello board to use. eg ```trello.com/b/{this bit}```
 - ```key``` your [Trello API key](https://trello.com/docs/gettingstarted/)
+- ```token``` your [token](https://trello.com/docs/gettingstarted/index.html#getting-a-token-from-a-user), via eg `https://trello.com/1/authorize?key=[KEY]&name=trello-show&expiration=never&response_type=token`
 - ```skip``` the name of a column you want to exclude from being displayed
 - ```show``` a single named card to show
 
