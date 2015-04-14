@@ -64,9 +64,11 @@ function showCards(jsonURL, trelloKey, token, skipList, singleCardToShow) {
 	         var carddiv = $("<div>", {class: 'card'});
 	         carddiv.append($("<h2>", {text: card.name, id: card.name.replace(/\s/g,'-').toLowerCase()}));
 	         carddiv.append($("<div>", {class: 'description', html: marked(card.desc)}));
-	         var checklistdiv = $("<div>", {class: 'checklists'});
+	         var checklistsdiv = $("<div>", {class: 'checklists'});
+	         var arrayOfChecklists = [];
 	         for (checklistindex in card.idChecklists) {
 		         var checklist = checklists_table[card.idChecklists[checklistindex]]; //show the first checklist, if there is one
+		         var checklistdiv = $("<div>", {class: 'checklist'});
 		         if (checklist) { 
 		            checklistdiv.append($("<h3>", {class: 'checklist-name', text: checklist.name}));
 		            var checklistul = $("<ul>", { class: 'checklist'});
@@ -75,15 +77,21 @@ function showCards(jsonURL, trelloKey, token, skipList, singleCardToShow) {
 		               item = checklist.checkItems[item_index];
 		               items_list.push([item.pos, item]); //key on item 'pos' value
 		            }
-		            items_list.sort(function (a, b) { return a[0] - b[0] }); //sort based on item position
-		            for (item_index in items_list) {
+		            items_list.sort(function (a, b) { return a[0] - b[0] }); //sort checklist items in list based on item position
+		            for (item_index in items_list) { // get each list item in order
 		               item = items_list[item_index][1];
 		               checklistul.append($("<li>", {class: item.state, text: item.name}));
 		            }
 		            checklistdiv.append(checklistul);
-		            carddiv.append(checklistdiv);
+		            arrayOfChecklists.push([checklist.pos, checklistdiv]); // key on checklist 'pos' value
 		         }
-	     	 }	
+	     	 }
+	     	 arrayOfChecklists.sort(function (a, b) { return a[0] - b[0] }); //sort checklists based on checklist postition
+	     	 for (orderedDivIndex in arrayOfChecklists) { // get each list in order
+	     	 	orderedDiv = arrayOfChecklists[orderedDivIndex][1];
+	     	 	checklistsdiv.append(orderedDiv);
+	     	 }
+	     	 carddiv.append(checklistsdiv);
 	         var metadiv = $("<div>", {class: 'meta'});
 	         var labelsdiv = $("<ul>", {class: 'labellist'});
 	         for (label in  card.labels) {
