@@ -64,24 +64,26 @@ function showCards(jsonURL, trelloKey, token, skipList, singleCardToShow) {
 	         var carddiv = $("<div>", {class: 'card'});
 	         carddiv.append($("<h2>", {text: card.name, id: card.name.replace(/\s/g,'-').toLowerCase()}));
 	         carddiv.append($("<div>", {class: 'description', html: marked(card.desc)}));
-	         var checklist = checklists_table[card.idChecklists[0]]; //show the first checklist, if there is one
-	         if (checklist) { 
-	            var checklistdiv = $("<div>", {class: 'checklists'});
-	            checklistdiv.append($("<h3>", {class: 'checklist-name', text: checklist.name}));
-	            var checklistul = $("<ul>", { class: 'checklist'});
-	            var items_list = [];
-	            for (item_index in checklist.checkItems) {
-	               item = checklist.checkItems[item_index];
-	               items_list.push([item.pos, item]); //key on item 'pos' value
-	            }
-	            items_list.sort(function (a, b) { return a[0] - b[0] }); //sort based on item position
-	            for (item_index in items_list) {
-	               item = items_list[item_index][1];
-	               checklistul.append($("<li>", {class: item.state, text: item.name}));
-	            }
-	            checklistdiv.append(checklistul);
-	            carddiv.append(checklistdiv);
-	         }
+	         var checklistdiv = $("<div>", {class: 'checklists'});
+	         for (checklistindex in card.idChecklists) {
+		         var checklist = checklists_table[card.idChecklists[checklistindex]]; //show the first checklist, if there is one
+		         if (checklist) { 
+		            checklistdiv.append($("<h3>", {class: 'checklist-name', text: checklist.name}));
+		            var checklistul = $("<ul>", { class: 'checklist'});
+		            var items_list = [];
+		            for (item_index in checklist.checkItems) {
+		               item = checklist.checkItems[item_index];
+		               items_list.push([item.pos, item]); //key on item 'pos' value
+		            }
+		            items_list.sort(function (a, b) { return a[0] - b[0] }); //sort based on item position
+		            for (item_index in items_list) {
+		               item = items_list[item_index][1];
+		               checklistul.append($("<li>", {class: item.state, text: item.name}));
+		            }
+		            checklistdiv.append(checklistul);
+		            carddiv.append(checklistdiv);
+		         }
+	     	 }	
 	         var metadiv = $("<div>", {class: 'meta'});
 	         var labelsdiv = $("<ul>", {class: 'labellist'});
 	         for (label in  card.labels) {
