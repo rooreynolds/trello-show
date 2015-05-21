@@ -80,7 +80,7 @@ function showCards(jsonURL, trelloKey, token, skipList, singleCardToShow) {
 		            items_list.sort(function (a, b) { return a[0] - b[0] }); //sort checklist items in list based on item position
 		            for (item_index in items_list) { // get each list item in order
 		               item = items_list[item_index][1];
-		               checklistul.append($("<li>", {class: item.state, text: item.name}));
+		               checklistul.append($("<li>", {class: item.state, html: marked(item.name)}));
 		            }
 		            checklistdiv.append(checklistul);
 		            arrayOfChecklists.push([checklist.pos, checklistdiv]); // key on checklist 'pos' value
