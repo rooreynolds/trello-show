@@ -125,7 +125,7 @@ function listColumns(board, jsonURL, trelloKey, token) {
 	   var lists_table = make_lists_table(data); // lookup table of lists (ie Trello columns)	   
 	   for (column in lists_table) {
 	   		var carddiv = $("<div>", {class: 'card'});
-	   		var link = $("<a>", {href: "?showList=" + lists_table[column].name + "&board=" + board + "&trelloKey=" + trelloKey + "&token=" + token});
+	   		var link = $("<a>", {href: "?showList=" + lists_table[column].name + "&board=" + board + (trelloKey ? "&trelloKey=" + trelloKey : "") + (token ? "&token=" + token : "")});
 	   		var h2 = $("<h2>", {text: lists_table[column].name, id: lists_table[column].name.replace(/\s/g,'-').toLowerCase()});
 	    	link.append(h2);
 	    	carddiv.append(link);
