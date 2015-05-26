@@ -112,3 +112,54 @@ function showCards(jsonURL, trelloKey, token, skipList, singleCardToShow) {
 	  moveSectionToNewDiv("#now-challenge", 'now'); // create a new div for 'now'
 	})
 }
+
+function listColumns(board, jsonURL, trelloKey, token) {
+	var params = {};
+	var column_list = [];
+	params['key'] = trelloKey;
+	if (token) {
+		params['token'] = token;
+	}
+	$('#board').append($("<h1>", {text: "Boards"})); //board name
+	$.getJSON(jsonURL, params, function(data) {
+	   var lists_table = make_lists_table(data); // lookup table of lists (ie Trello columns)	   
+	   for (column in lists_table) {
+	   		var carddiv = $("<div>", {class: 'card'});
+	   		var link = $("<a>", {href: "?showList=" + lists_table[column].name + "&board=" + board + "&trelloKey=" + trelloKey + "&token=" + token});
+	   		var h2 = $("<h2>", {text: lists_table[column].name, id: lists_table[column].name.replace(/\s/g,'-').toLowerCase()});
+	    	link.append(h2);
+	    	carddiv.append(link);
+	    	$('#board').append(carddiv);     
+	   }
+	})
+}
+
+function showTitles(jsonURL, trelloKey, token, showList) {
+	if (showList) {
+		$('#board').append($("<h1>", {text: showList})); //board name
+	}
+	var params = {};
+	params['key'] = trelloKey;
+	if (token) {
+		params['token'] = token;
+	}
+	$.getJSON(jsonURL, params, function(data) {
+	   var lists_table = make_lists_table(data); // lookup table of lists (ie Trello columns)
+	   for (card_index in data.cards) {
+	      card = data.cards[card_index];
+	      if(card.closed) {
+	         //this card is closed. Don't show it.
+	      } else if (showList && lists_table[card.idList].name != showList) {
+		    //this card is not on the showList list. Don't show it.
+	      } else {
+	         var carddiv = $("<div>", {class: 'card'});
+	         carddiv.append($("<h2>", {text: card.name, id: card.name.replace(/\s/g,'-').toLowerCase()}));
+	         //carddiv.append($("<div>", {class: 'description', html: marked(card.desc)}));
+	         var metadiv = $("<div>", {class: 'meta'});
+	         metadiv.append($("<a>", {class: 'card-url', href: card.url, text: card.url})); 
+	         carddiv.append(metadiv);
+	         $('#board').append(carddiv);
+	      }
+	  }
+	})
+}
