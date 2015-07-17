@@ -2,28 +2,34 @@
 <html>
   <head>
   <meta charset="utf-8">
-    <title>trello-show</title>
-    <link href="../style.css" rel="stylesheet" type="text/css"></link>
+    <link href="//assets.livestax.com/theme-0.0.1.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../compact.css" rel="stylesheet" type="text/css"></link>
     <link href="../print.css" rel="stylesheet" type="text/css" media="print"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="//assets.livestax.com/livestax-0.2.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.js"></script>
   </head>
   <body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
   <script src="../trello-show.js"></script>
 
   <div id="board"/>
    
   <script type="text/javascript">
-  	  var board = (getParameterByName('board') || 'bvLhgd6L');
+  	  var board = (getParameterByName('board') || 'GyqsETvS');
       var jsonURL = "https://api.trello.com/1/board/" + board + "?cards=open&lists=open&checklists=all";
       var trelloKey = getParameterByName('key') || "a66bcb187f5c9988fbe0b3458a16d920";
       var token = getParameterByName('token'); 
       var showList = getParameterByName('showList'); 
+
       if (showList) {
-        showTitles(jsonURL, trelloKey, token, showList); 
+        showCards(board, jsonURL, trelloKey, token, showList); 
+
       } else {
-        listColumns(board, jsonURL, trelloKey, token);
+        listColumns(board, jsonURL, trelloKey, token) 
       } 
+
   </script>
   </body>
 </html>
