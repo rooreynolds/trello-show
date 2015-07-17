@@ -10,6 +10,11 @@ function getParameterByName(name) {
   }
 }
 
+function convertToSlug(text) {
+    return text.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
+}
+
+
 function make_lists_table(data) { // create a table of Trello columns 
    var lists_table = {};
    for (list_index in data.lists) {
@@ -40,37 +45,47 @@ function moveSectionToNewDiv(sourceDivID, newDivClass) {
    });
 }
 
-function showCards(jsonURL, trelloKey, token, skipList, singleCardToShow) {
+function showCards(board, jsonURL, trelloKey, token, showList) {
+	if (showList) {
+	   var breadcrumb = $("<ul>", {class:'breadcrumb'});
+	   breadcrumb.append("<li><a href='?board=" + board + (trelloKey ? "&trelloKey=" + trelloKey : "") + (token ? "&token=" + token : "") + "'>" + "Home" + "</a></li>");
+	   breadcrumb.append($("<li>", {class:'active', text:showList})); // list name
+	   $('#board').append(breadcrumb);
+	}
 	var params = {};
 	params['key'] = trelloKey;
 	if (token) {
 		params['token'] = token;
 	}
 	$.getJSON(jsonURL, params, function(data) {
-	   if (! singleCardToShow) { // don't show the board name if we're only showing one card
-	      $('#board').append($("<h1>", {text: data.name})); //board name
-	   }
-
 	   var lists_table = make_lists_table(data); // lookup table of lists (ie Trello columns)
 	   var checklists_table = make_checklists_table(data); // lookup table of checklists
 
 	   for (card_index in data.cards) {
 	      card = data.cards[card_index];
-	      if(card.closed || lists_table[card.idList].name == skipList) {
-	         //this card is closed or is a skippable list. Don't show it.
-	      } else if (singleCardToShow && card.name != singleCardToShow) {
-	         // only showing one card, and this isn't it. Don't show it.
+	      if(card.closed) {
+	         //this card is closed. Don't show it.
+	      } else if (showList && lists_table[card.idList].name != showList) {
+		    //this card is not on the showList list. Don't show it.
 	      } else {
-	         var carddiv = $("<div>", {class: 'card'});
-	         carddiv.append($("<h2>", {text: card.name, id: card.name.replace(/\s/g,'-').toLowerCase()}));
-	         carddiv.append($("<div>", {class: 'description', html: marked(card.desc)}));
+	      	 var cardname = card.name;
+	      	 var cardid = convertToSlug(card.name);
+	         var carddiv = $("<div>", {class: 'card panel panel-default panel-collapsible'});
+	         var panelhead = $("<div>", {class: 'panel-heading collapsed', 'data-toggle': 'collapse', 'data-target': "#" + cardid});
+	         panelhead.append($("<h4>", {class: "panel-title", text: cardname}));
+	         carddiv.append(panelhead);
+	         var panel = $("<div>", {id: cardid, class: 'panel-collapse collapse'});
+			 var panelbody = $("<div>", {class: 'panel-body'});
+
+	         panelbody.append($("<p>", {class: 'board-name', html: marked(card.desc)}));
+	         
 	         var checklistsdiv = $("<div>", {class: 'checklists'});
 	         var arrayOfChecklists = [];
 	         for (checklistindex in card.idChecklists) {
 		         var checklist = checklists_table[card.idChecklists[checklistindex]]; //show the first checklist, if there is one
 		         var checklistdiv = $("<div>", {class: 'checklist'});
 		         if (checklist) { 
-		            checklistdiv.append($("<h3>", {class: 'checklist-name', text: checklist.name}));
+		            checklistdiv.append($("<h4>", {class: 'checklist-name', text: checklist.name}));
 		            var checklistul = $("<ul>", { class: 'checklist'});
 		            var items_list = [];
 		            for (item_index in checklist.checkItems) {
@@ -91,16 +106,20 @@ function showCards(jsonURL, trelloKey, token, skipList, singleCardToShow) {
 	     	 	orderedDiv = arrayOfChecklists[orderedDivIndex][1];
 	     	 	checklistsdiv.append(orderedDiv);
 	     	 }
-	     	 carddiv.append(checklistsdiv);
+	     	 panelbody.append(checklistsdiv);
+	     	 
+	     	 carddiv.append(panelbody);
 	         var metadiv = $("<div>", {class: 'meta'});
 	         var labelsdiv = $("<ul>", {class: 'labellist'});
 	         for (label in  card.labels) {
-	            labelsdiv.append($("<li>", {class: 'label ' + card.labels[label].color, text: card.labels[label].name}));
+	            labelsdiv.append($("<span>", {class: 'badge ' + card.labels[label].color, text: card.labels[label].name}));
 	         }
 	         metadiv.append(labelsdiv);
-	         metadiv.append($("<p>", {class: 'list-name', text: (lists_table[card.idList].name)})); 
 	         metadiv.append($("<a>", {class: 'card-url', href: card.url, text: card.url})); 
-	         carddiv.append(metadiv);
+	         panelbody.append(metadiv);
+	         
+	         panel.append(panelbody);
+	         carddiv.append(panel);
 	         $('#board').append(carddiv);
 	      }
 	  }
@@ -114,52 +133,25 @@ function showCards(jsonURL, trelloKey, token, skipList, singleCardToShow) {
 }
 
 function listColumns(board, jsonURL, trelloKey, token) {
+	var breadcrumb = $("<ul>", {class:'breadcrumb'});
+    //breadcrumb.append("<li class='active'>" + data.name + "</li>");
+    breadcrumb.append("<li class='active'>" + "Home" + "</li>");
+    $('#board').append(breadcrumb);
 	var params = {};
 	var column_list = [];
 	params['key'] = trelloKey;
 	if (token) {
 		params['token'] = token;
 	}
-	$('#board').append($("<h1>", {text: "Boards"})); //board name
 	$.getJSON(jsonURL, params, function(data) {
 	   var lists_table = make_lists_table(data); // lookup table of lists (ie Trello columns)	   
 	   for (column in lists_table) {
 	   		var carddiv = $("<div>", {class: 'card'});
 	   		var link = $("<a>", {href: "?showList=" + encodeURIComponent(lists_table[column].name) + "&board=" + board + (trelloKey ? "&trelloKey=" + trelloKey : "") + (token ? "&token=" + token : "")});
-	   		var h2 = $("<h2>", {text: lists_table[column].name, id: lists_table[column].name.replace(/\s/g,'-').toLowerCase()});
+	   		var h2 = $("<h3>", {text: lists_table[column].name, id: lists_table[column].name.replace(/\s/g,'-').toLowerCase()});
 	    	link.append(h2);
 	    	carddiv.append(link);
 	    	$('#board').append(carddiv);     
 	   }
-	})
-}
-
-function showTitles(jsonURL, trelloKey, token, showList) {
-	if (showList) {
-		$('#board').append($("<h1>", {text: showList})); //board name
-	}
-	var params = {};
-	params['key'] = trelloKey;
-	if (token) {
-		params['token'] = token;
-	}
-	$.getJSON(jsonURL, params, function(data) {
-	   var lists_table = make_lists_table(data); // lookup table of lists (ie Trello columns)
-	   for (card_index in data.cards) {
-	      card = data.cards[card_index];
-	      if(card.closed) {
-	         //this card is closed. Don't show it.
-	      } else if (showList && lists_table[card.idList].name != showList) {
-		    //this card is not on the showList list. Don't show it.
-	      } else {
-	         var carddiv = $("<div>", {class: 'card'});
-	         carddiv.append($("<h2>", {text: card.name, id: card.name.replace(/\s/g,'-').toLowerCase()}));
-	         //carddiv.append($("<div>", {class: 'description', html: marked(card.desc)}));
-	         var metadiv = $("<div>", {class: 'meta'});
-	         metadiv.append($("<a>", {class: 'card-url', href: card.url, text: card.url})); 
-	         carddiv.append(metadiv);
-	         $('#board').append(carddiv);
-	      }
-	  }
 	})
 }

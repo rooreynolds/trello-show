@@ -1,51 +1,18 @@
-body {
-  font-family: sans-serif;
-  font-size: 14px;
-  background-color: silver;
-  padding: 0px;
-  margin: 0px;
+h2 {
+	margin: 10px;
+	padding: 5px;
 }
 
-h1 {
-	margin: 10px;
+ul {
+	padding-left:20px;
 }
 
 .card {
-	padding: 10px;
+	padding: 5px;
 	margin: 10px;
 	border: 1px solid silver;
-  	background-color: white;
   	overflow: auto;
   	position: relative;
-}
-
-.description {
-	float:left;
-	width: 47%;
-	border-right: solid silver 1px;
-	padding-right: 1%;
-}
-
-.now {
-	border-bottom: solid silver 1px;
-}
-
-.future {
-
-}
-
-.meta {
-	clear:both;
-}
-
-.checklists {
-	float:right;
-	width: 47%;
-	padding-left: 2%;
-}
-
-.checklist {
-	padding-left: 5px;
 }
 
 .complete {
@@ -63,7 +30,6 @@ h1 {
 	padding:5px;
 	margin:2px;
 	color:white;
-	background-color: silver;
 }
 
 .list-name .card-url {
