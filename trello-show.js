@@ -21,7 +21,7 @@ function make_lists_table(data) { // create a table of Trello columns
       list = data.lists[list_index];
       if (! list.closed) {
          lists_table[list.id] = list;
-      }        
+      }
    }
    return lists_table;
 }
@@ -85,7 +85,7 @@ function showCards(board, jsonURL, trelloKey, token, showList) {
 		         var checklist = checklists_table[card.idChecklists[checklistindex]]; //show the first checklist, if there is one
 		         var checklistdiv = $("<div>", {class: 'checklist'});
 		         if (checklist) { 
-		            checklistdiv.append($("<h4>", {class: 'checklist-name', text: checklist.name}));
+		            checklistdiv.append($("<h3>", {class: 'checklist-name', text: checklist.name}));
 		            var checklistul = $("<ul>", { class: 'checklist'});
 		            var items_list = [];
 		            for (item_index in checklist.checkItems) {
@@ -134,7 +134,6 @@ function showCards(board, jsonURL, trelloKey, token, showList) {
 
 function listColumns(board, jsonURL, trelloKey, token) {
 	var breadcrumb = $("<ul>", {class:'breadcrumb'});
-    //breadcrumb.append("<li class='active'>" + data.name + "</li>");
     breadcrumb.append("<li class='active'>" + "Home" + "</li>");
     $('#board').append(breadcrumb);
 	var params = {};
@@ -143,15 +142,20 @@ function listColumns(board, jsonURL, trelloKey, token) {
 	if (token) {
 		params['token'] = token;
 	}
+
+    var listgroup = $("<ul>", {class:'list-group'});
+
 	$.getJSON(jsonURL, params, function(data) {
 	   var lists_table = make_lists_table(data); // lookup table of lists (ie Trello columns)	   
 	   for (column in lists_table) {
-	   		var carddiv = $("<div>", {class: 'card'});
+	   		var listgroupitem = $("<li>", {class: 'list-group-item'});
 	   		var link = $("<a>", {href: "?showList=" + encodeURIComponent(lists_table[column].name) + "&board=" + board + (trelloKey ? "&trelloKey=" + trelloKey : "") + (token ? "&token=" + token : "")});
-	   		var h2 = $("<h3>", {text: lists_table[column].name, id: lists_table[column].name.replace(/\s/g,'-').toLowerCase()});
-	    	link.append(h2);
-	    	carddiv.append(link);
-	    	$('#board').append(carddiv);     
+	   		var heading = $("<h4>", {text: lists_table[column].name, id: lists_table[column].name.replace(/\s/g,'-').toLowerCase()});
+	    	link.append(heading);
+	    	//listgroupitem.append($("<span>", {class: 'badge', text: 14})); //TODO: badge with size of list?
+	    	listgroupitem.append(link);
+	    	listgroup.append(listgroupitem);
 	   }
+	   $('#board').append(listgroup);
 	})
 }
